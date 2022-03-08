@@ -38,6 +38,8 @@ let vitesse = 0
 let vitesseVirage = 0
 let direction = ""
 irRemote.connectInfrared(DigitalPin.P16)
+let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
+irRemote.connectInfrared(DigitalPin.P16)
 direction = "avancer"
 vitesseVirage = 13
 vitesse = 45
@@ -52,13 +54,6 @@ basic.forever(function () {
         avancer()
     } else {
         k_Bit.carStop()
-    }
-})
-control.inBackground(function () {
-    while (true) {
-        if (0 != irRemote.returnIrButton()) {
-            ordre = irRemote.returnIrButton()
-        }
     }
 })
 control.inBackground(function () {
@@ -84,6 +79,13 @@ control.inBackground(function () {
             soundExpression.happy.play()
         } else if (irRemote.returnIrButton() == 90) {
             soundExpression.sad.play()
+        }
+    }
+})
+control.inBackground(function () {
+    while (true) {
+        if (0 != irRemote.returnIrButton()) {
+            ordre = irRemote.returnIrButton()
         }
     }
 })
